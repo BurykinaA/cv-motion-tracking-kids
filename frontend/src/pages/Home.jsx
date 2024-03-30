@@ -8,11 +8,12 @@ import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from "../components/Nav";
 import axios from "axios";
-import {postTaskData, URL} from '../data/editProject'
+import {postTaskData} from '../data/editProject'
 import { AuthContext, ProjectsContext, VideoContext } from "../context/context";
 import Face from "../components/Face";
 import { Modal } from "flowbite-react";
 import DownloadVideo from "../components/DownloadVideo";
+import StatusBar from "../components/StatusBar";
 
 
 function Home(props) {
@@ -67,10 +68,11 @@ function Home(props) {
   const videoRef = useRef(null);
 
   // !!!!!!!
-  const URL='/'
+  const URL='http://127.0.0.1:5000/'
 
   const [screen, setScreen]= useState('')
   const [origScreen, setOrigScreen] = useState('')
+  const [persentage, setPercentage]= useState(0)
   let time=0
   useEffect(() => {
     const video = videoRef.current;
@@ -89,10 +91,11 @@ function Home(props) {
     
     const handleTimeUpdate = () => {
       const currentTime = Math.floor(video.currentTime);
-
+// console.log(video.duration)
+      setPercentage(parseInt((video.currentTime/video.duration)*100))
       if (time!=currentTime) {
         time=currentTime
-        console.log(currentTime, video.currentTime, time)
+        // console.log(currentTime, video.currentTime, time)
         captureFrame();
         setSet(true)
       } else setSet(false)
@@ -107,12 +110,18 @@ function Home(props) {
     };
   }, []);
 
-  useEffect(()=>{ console.log({...screen,screen:origScreen.split(',')[1]})},[screen])
-
-  useEffect(()=>{axios.post(URL+'api/photo',{...screen,screen:origScreen.split(',')[1]}, '')
+  // useEffect(()=>{ console.log({...screen,originalVideo:origScreen.split(',')[1]})},[screen])
+const [data, setData]= useState({})
+  useEffect(()=>{axios.post(URL+'api/photo',
+  {
+    userVideo: screen,
+    originalVideo:origScreen.split(',')[1]
+  },
+   '')
   .then(response=>
     {
-      console.log(response)
+      setData(response.data)
+      // console.log(response)
     })
     .catch(error=>{
       console.error('Error fetching tasks:', error);
@@ -127,6 +136,11 @@ function Home(props) {
         video.pause();
       }
     };
+
+    // useEffect(() => {
+    //   // Обновляем компонент при изменении значения persentage
+    //   console.log(persentage);
+    // }, [persentage]);
   return (
         
     <div className="h-screen relative">
@@ -136,7 +150,7 @@ function Home(props) {
      
       <div className="top-[170px] absolute w-full flex flex-col items-center z-20 gap-10 ">
       <div className="flex items-center gap-10 justify-between w-full px-10">
-        <button className='flex gap-2 w-max  items-center bg-blue-600   rounded-lg text-white hover:bg-blue-800 ' onClick={() => modalProps.setOpenModal('dismissible')}>
+        <button className='flex gap-2 min-w-max  items-center bg-blue-600   rounded-lg text-white hover:bg-blue-800 ' onClick={() => modalProps.setOpenModal('dismissible')}>
              
           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none">
             <path d="M10.125 8.875C10.125 7.83947 10.9645 7 12 7C13.0355 7 13.875 7.83947 13.875 8.875C13.875 9.56245 13.505 10.1635 12.9534 10.4899C12.478 10.7711 12 11.1977 12 11.75V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
@@ -146,8 +160,8 @@ function Home(props) {
           Ask a question
         </button>
         <div className="text-5xl flex items-center gap-10">
-          <p className="m-0">87%</p>
-          <p className="m-0">You are doing great, rockstar!</p>
+          <p className="m-0">{data.CumulativeAccuracy}</p>
+          <p className="m-0">You are doing great, rockstar! {data.Step}</p>
         </div>
         <div className="w-max">
         <DownloadVideo/>
@@ -169,11 +183,7 @@ function Home(props) {
       
         <div className="flex items-center gap-10 justify-center">
           <Face setScreen={setScreen} time={set} />
-          <div className="relative">
-          <div className="absolute bottom-0 left-0 bg-green-200 w-[40px] h-[274px]  border-[3px] border-green-400 border-t-0 rounded-b-full  z-10"/>
-            <div className="bg-green-50 w-[40px] h-[474px] rounded-full border-[3px] border-green-400 relative"/>
-            
-          </div>
+          <StatusBar video={ videoRef.current}/>
           {/* <div ></div> */}
           {/* <div id="video-container"className="bg-red-100 w-[632px] h-[474px] "></div> */}
           <div id="video-container" className="bg-red-100 w-[677px] h-[474px]"  onClick={()=>toggleVideo}>

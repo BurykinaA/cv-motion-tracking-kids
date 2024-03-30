@@ -50,7 +50,7 @@ useEffect(()=>{console.log(file)},[file])
     
     return (
         <>
-             <button className='w-full gap-2 justify-center flex text-white items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 ' onClick={() => modalProps.setOpenModal('dismissible')}>
+             <button className='min-w-max w-full gap-2 justify-center flex text-white items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 ' onClick={() => modalProps.setOpenModal('dismissible')}>
           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 21 20" fill="none">
             <path d="M3.5 17H17.5M10.5 14V3M10.5 14L14 10.5M10.5 14L7 10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
