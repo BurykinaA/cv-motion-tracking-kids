@@ -3,7 +3,7 @@ import React from 'react';
 import {  BrowserRouter, Routes, Route} from 'react-router-dom';
 import './App.css'
 import AppRouted from "./components/AppRouted";
-import {AuthContext, CartContext, ProjectsContext } from './context/context';
+import {AuthContext, CartContext, ProjectsContext, VideoContext } from './context/context';
 import Nav from "./components/Nav";
 import ThemeToggle from './components/ThemeToggle';
 
@@ -11,6 +11,7 @@ import ThemeToggle from './components/ThemeToggle';
 
 function App() {
   const [isAuth, setIsAuth] = useState('')
+  const [video, setVideo]= useState('')
   const [CartItem, setCartItem] = useState([]);
   const [Proj, setProj] = useState([])
 
@@ -34,16 +35,16 @@ function App() {
   return (
     <div >
       <AuthContext.Provider value={{isAuth, setIsAuth}}>
-        <CartContext.Provider value={{CartItem, setCartItem}}>
-          <ProjectsContext.Provider value={{Proj, setProj}}>
+        {/* <CartContext.Provider value={{CartItem, setCartItem}}> */}
+          <VideoContext.Provider value={{video, setVideo}}>
             <BrowserRouter>
               <div className='w-min fixed right-0 top-3 z-40'>
                 <ThemeToggle />
               </div>
               <AppRouted/>
             </BrowserRouter>
-          </ProjectsContext.Provider>
-        </CartContext.Provider>
+          </VideoContext.Provider>
+        {/* </CartContext.Provider> */}
       </AuthContext.Provider>
     </div>
   )

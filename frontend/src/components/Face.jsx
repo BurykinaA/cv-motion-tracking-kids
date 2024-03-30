@@ -4,7 +4,7 @@ import Webcam from "react-webcam";
 import './../App.css';
 import axios from 'axios';
 
-function Face() {
+function Face({setScreen, time}) {
     const URL= 'http://127.0.0.1:5000'
   
   const webcamRef = useRef(null);
@@ -23,32 +23,20 @@ function Face() {
     const ctx = canvasElement.getContext('2d');
     ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight);
   
-    // Получаем данные с Canvas в формате base64
     const imageData = canvasElement.toDataURL('image/jpeg');
-    // axios.post(URL+'/api/cam', [{photo: imageData.split(',')[1]}])
-    //       .then(response => {
-    //         const data= response.data
-    //         // localStorage.setItem('response', data.photo)
-    //         setPicture(data[0].log)
-    //         // console.log(data.id)
-    //       })
-    //       .catch(error => {
-    //           console.error('Error:', error);
-    //       });
-        
-      
+    setScreen(imageData.split(',')[1])
    
 
   };
 
-
+  
   
 
+  useEffect(()=>{
+    time&& (  captureImage())
+  },[time])
+
   
-
-  useEffect(() => {
-
-  }, [])
 
   return ( 
     <div className="w-max"> 
