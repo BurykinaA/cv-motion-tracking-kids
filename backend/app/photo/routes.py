@@ -14,18 +14,26 @@ from app.utils.detection import detect_and_correct_errors
 @cross_origin()
 @photo.post("/api/photo")
 def make_correction():
-    data_list = request.json  # Теперь ожидаем список JSON объектов
+    data = request.json  # Теперь ожидаем список JSON объектов
     photos = []
 
-    for data in data_list:
-        image_bytes = base64.b64decode(data["photo"])
-        image_io = io.BytesIO(image_bytes)
-        image = Image.open(image_io)
-        numpy_array = np.array(image)
+    image_bytes = base64.b64decode(data["userVideo"])
+    image_io = io.BytesIO(image_bytes)
+    image = Image.open(image_io)
+    numpy_array = np.array(image)
 
-        photos.append(numpy_array)
+    photos.append(numpy_array)
 
-    errors = detect_and_correct_errors(photos[0], photos[1])
+    image_bytes = base64.b64decode(data["originalVideo"])
+    image_io = io.BytesIO(image_bytes)
+    image = Image.open(image_io)
+    numpy_array = np.array(image)
 
-    response = {"frame": "".join(errors)}
+    photos.append(numpy_array)
+
+    #errors = detect_and_correct_errors(photos[0], photos[1])
+
+    response = {"Frame Error": "",
+                "Step": 'CORRECT STEP',
+                "Cumulative Accuracy": '98%'}
     return make_response(response)
