@@ -80,8 +80,9 @@ function Home(props) {
           Ask a question
         </button>
         <div className="text-5xl flex items-center gap-10">
-        <p className="m-0">87%</p>
-        <p className="m-0">You are doing great, rockstar!</p>
+          <p className="m-0">{data.Cumulative_Accuracy}</p>
+          <p className="m-0 ">You are doing great, rockstar!</p>
+          <p className="m-0 text-base">{data.Step}</p>
         </div>
         <div className="w-max">
         <DownloadVideo/>
