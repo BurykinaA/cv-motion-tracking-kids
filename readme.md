@@ -4,6 +4,7 @@
 
 1) python -m venv venv
 2) venv\Scripts\activate.bat (в command prom)
+   source venv/bin/activate (в bush)
 3) pip install -r requirements.txt
 
 бэк поднимаем  
