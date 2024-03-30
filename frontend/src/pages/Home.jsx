@@ -1,6 +1,6 @@
 // Домашняя страница
 
-import React, { Suspense, useContext, useEffect , useState, } from "react";
+import React, { Suspense, useContext, useEffect , useRef, useState, } from "react";
 import { Link, useParams} from 'react-router-dom';
 import '../App.css';
 import 'flowbite';
@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from "../components/Nav";
 import axios from "axios";
 import {postTaskData, URL} from '../data/editProject'
-import { AuthContext, ProjectsContext } from "../context/context";
+import { AuthContext, ProjectsContext, VideoContext } from "../context/context";
 import Face from "../components/Face";
 import { Modal } from "flowbite-react";
 import DownloadVideo from "../components/DownloadVideo";
@@ -18,6 +18,7 @@ import DownloadVideo from "../components/DownloadVideo";
 function Home(props) {
   const params = useParams();
   const [len, setLen]= useState()
+  const {video, setVideo}= useContext(VideoContext)
   const {isAuth}= useContext(AuthContext)
   const { setProj}= useContext(ProjectsContext)
     
@@ -60,7 +61,72 @@ function Home(props) {
 
   const [openModal, setOpenModal] = useState('');
   const modalProps = { openModal, setOpenModal };
-      
+  const [set, setSet] = useState(false)
+
+
+  const videoRef = useRef(null);
+
+  // !!!!!!!
+  const URL='/'
+
+  const [screen, setScreen]= useState('')
+  const [origScreen, setOrigScreen] = useState('')
+  let time=0
+  useEffect(() => {
+    const video = videoRef.current;
+
+    const captureFrame = () => {
+      const canvas = document.createElement('canvas');
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+      const ctx = canvas.getContext('2d');
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+      const imageDataUrl = canvas.toDataURL('image/png');
+
+      setOrigScreen( canvas.toDataURL('image/png'))
+     
+    };
+    
+    const handleTimeUpdate = () => {
+      const currentTime = Math.floor(video.currentTime);
+
+      if (time!=currentTime) {
+        time=currentTime
+        console.log(currentTime, video.currentTime, time)
+        captureFrame();
+        setSet(true)
+      } else setSet(false)
+    };
+
+  
+
+    video.addEventListener('timeupdate', handleTimeUpdate);
+
+    return () => {
+      video.removeEventListener('timeupdate', handleTimeUpdate);
+    };
+  }, []);
+
+  useEffect(()=>{ console.log({...screen,screen:origScreen.split(',')[1]})},[screen])
+
+  useEffect(()=>{axios.post(URL+'api/photo',{...screen,screen:origScreen.split(',')[1]}, '')
+  .then(response=>
+    {
+      console.log(response)
+    })
+    .catch(error=>{
+      console.error('Error fetching tasks:', error);
+    })},[screen])
+  
+
+    const toggleVideo = () => {
+      const video = videoRef.current;
+      if (video.paused) {
+        video.play();
+      } else {
+        video.pause();
+      }
+    };
   return (
         
     <div className="h-screen relative">
@@ -80,8 +146,8 @@ function Home(props) {
           Ask a question
         </button>
         <div className="text-5xl flex items-center gap-10">
-        <p className="m-0">87%</p>
-        <p className="m-0">You are doing great, rockstar!</p>
+          <p className="m-0">87%</p>
+          <p className="m-0">You are doing great, rockstar!</p>
         </div>
         <div className="w-max">
         <DownloadVideo/>
@@ -102,14 +168,21 @@ function Home(props) {
         </div>
       
         <div className="flex items-center gap-10 justify-center">
-          <Face/>
+          <Face setScreen={setScreen} time={set} />
           <div className="relative">
           <div className="absolute bottom-0 left-0 bg-green-200 w-[40px] h-[274px]  border-[3px] border-green-400 border-t-0 rounded-b-full  z-10"/>
             <div className="bg-green-50 w-[40px] h-[474px] rounded-full border-[3px] border-green-400 relative"/>
             
           </div>
-
-          <div className="bg-red-100 w-[632px] h-[474px] "></div>
+          {/* <div ></div> */}
+          {/* <div id="video-container"className="bg-red-100 w-[632px] h-[474px] "></div> */}
+          <div id="video-container" className="bg-red-100 w-[677px] h-[474px]"  onClick={()=>toggleVideo}>
+            <video ref={videoRef} controls >
+              <source src={video.src} type="video/mp4" />
+              Ваш браузер не поддерживает видео.
+            </video>
+          </div>
+          
         </div>
         <p className="m-0 text-5xl">(!) Tip: Do some tigidik with your right arm and then some tutun with other arm and repeat for 1 minute</p>
 
