@@ -8,7 +8,7 @@ from PIL import Image
 import base64
 import io
 
-from backend.app.utils.detection import detect_and_correct_errors
+from app.utils.detection import detect_and_correct_errors
 
 
 @cross_origin()
