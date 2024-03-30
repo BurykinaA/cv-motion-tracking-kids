@@ -1,16 +1,21 @@
+# cv-motion-tracking-kids
+🔥Burning Heroes Hackathon
+
 Чтобы запустить бэк без докера:
 
 В главной папке:
-1) python -m venv venv
-2) venv\Scripts\activate.bat (в command prom)
-   source venv/bin/activate (в bush)
-3) pip install -r requirements.txt
 
-Поднять бэк:  
-1) cd backend
-2) flask run
+python -m venv venv
+venv\Scripts\activate.bat (в command prom) source venv/bin/activate (в bush)
+pip install -r requirements.txt
 
-Поднять фронт
-1) cd frontend
-2) npm i
-3) npm run dev
+Поднять бэк:
+
+cd backend
+flask run
+
+Поднять фронт:
+
+cd frontend
+npm i
+npm run dev
