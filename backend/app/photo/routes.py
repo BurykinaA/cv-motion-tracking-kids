@@ -33,7 +33,7 @@ def make_correction():
 
     #errors = detect_and_correct_errors(photos[0], photos[1])
 
-    response = {"Frame Error": "",
+    response = {"Frame_Error": "",
                 "Step": 'CORRECT STEP',
-                "Cumulative Accuracy": '98%'}
+                "Cumulative_Accuracy": '98%'}
     return make_response(response)
