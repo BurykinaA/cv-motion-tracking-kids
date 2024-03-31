@@ -7,7 +7,7 @@ import pic2 from '../assets/pic2.jpeg'
 import { Link } from 'react-router-dom';
 import { AuthContext, VideoContext } from '../context/context';
 import DoxsType from './DoxsType';
-function DownloadVideo() {
+function DownloadVideo({home}) {
   const {video, setVideo}= useContext(VideoContext)
   const [downloaded, setDownloaded]=useState(false)
   const {isAuth}= useContext(AuthContext)
@@ -40,6 +40,7 @@ function DownloadVideo() {
       // videoContainer.appendChild(videoElement);
       // console.log(videoElement)
       setVideo(videoElement)
+      console.log(videoElement)
   } else {
       alert('Пожалуйста, выберите видеофайл');
   }
@@ -81,11 +82,18 @@ useEffect(()=>{setFile('')},[openModal])
                     <input id="dropzone-file" type="file" class="hidden" onChange={()=>setDownloaded(true)}/>
                 </label>
             </div> }
+            {console.log(home)}
+            {home?
+             <button  onClick={() => modalProps.setOpenModal(undefined)} disabled={file==''} className='w-full justify-center gap-2 flex text-gray-50 mt-3 items-center bg-blue-600 rounded-lg  hover:bg-blue-800 disabled:dark:bg-gray-500 disabled:dark:text-gray-200 disabled:bg-gray-200 disabled:text-gray-500 '>
+             Start
+           </button>
+            :
+            
             <Link to='/train' aria-disabled={file==''} className='no-underline'>
             <button disabled={file==''} className='w-full justify-center gap-2 flex text-gray-50 mt-3 items-center bg-blue-600 rounded-lg  hover:bg-blue-800 disabled:dark:bg-gray-500 disabled:dark:text-gray-200 disabled:bg-gray-200 disabled:text-gray-500 '>
               Start
             </button>
-            </Link>
+            </Link>}
 
             <div className="w-10 " id="video-container"></div>
 

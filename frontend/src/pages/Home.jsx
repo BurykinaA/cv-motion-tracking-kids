@@ -76,6 +76,7 @@ function Home(props) {
   const [persentage, setPercentage]= useState(0)
   let time=0
   useEffect(() => {
+    // console.log(video)
     const video = videoRef.current;
 
     const captureFrame = () => {
@@ -93,7 +94,7 @@ function Home(props) {
     const handleTimeUpdate = () => {
       const currentTime = Math.floor(video.currentTime);
 // console.log(video.duration)
-      setPercentage(parseInt((video.currentTime/video.duration)*100))
+      
       if (time!=currentTime) {
         time=currentTime
         // console.log(currentTime, video.currentTime, time)
@@ -104,10 +105,10 @@ function Home(props) {
 
   
 
-    video.addEventListener('timeupdate', handleTimeUpdate);
+    video&&video.addEventListener('timeupdate', handleTimeUpdate);
 
     return () => {
-      video.removeEventListener('timeupdate', handleTimeUpdate);
+        video&&video.removeEventListener('timeupdate', handleTimeUpdate);
     };
   }, []);
 
@@ -137,7 +138,7 @@ const [data, setData]= useState({})
         video.pause();
       }
     };
-
+    useEffect(()=>{console.log(video)},[video])
   return (
         
     <div className="h-screen relative dark:text-white">
@@ -157,7 +158,7 @@ const [data, setData]= useState({})
                 <p className="m-0 text-base"> {data.Step}</p>
             </div>
             <div className="w-max ">
-                <DownloadVideo/>
+                <DownloadVideo home='true'/>
             </div>
         </div>
       
@@ -166,10 +167,10 @@ const [data, setData]= useState({})
           <StatusBar video={ videoRef.current}/>
           
           <div id="video-container" className="bg-red-100 w-[677px] h-[474px]"  onClick={()=>toggleVideo}>
-            <video ref={videoRef} controls >
+           {video&& <video ref={videoRef} controls >
               <source src={video.src} type="video/mp4" />
               Ваш браузер не поддерживает видео.
-            </video>
+            </video>}
           </div>
           
         </div>
