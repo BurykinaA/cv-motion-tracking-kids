@@ -157,8 +157,8 @@ const [data, setData]= useState({})
                 <p className="m-0">You are doing great, rockstar! </p>
                 <p className="m-0 text-base"> {data.Step}</p>
             </div>
-            <div className="w-max ">
-                <DownloadVideo home='true'/>
+            <div className="w-[180px] ">
+                {/* <DownloadVideo home='true'/> */}
             </div>
         </div>
       
