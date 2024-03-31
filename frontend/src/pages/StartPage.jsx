@@ -62,6 +62,7 @@ function StartPage(props) {
   const handleSaveClick = () => {
     
     const inputName = document.getElementById("nameInput").value;
+    setIsAuth({...isAuth, name: inputName})
     localStorage.setItem('name', inputName)
     localStorage.setItem('level', '0')
     localStorage.setItem('stars', '0')
@@ -78,7 +79,7 @@ console.log(localStorage.name)
       <Nav className={"z-30 dark:bg-slate-950 dark:text-white  "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor} setFilteredData={setFilteredData} setFontSize={setFontSize}/>
      
       {!localStorage.name?
-        <div className="top-[270px] absolute w-full flex flex-col items-center z-20 gap-10 justify-center">
+        <div className="top-[170px] absolute w-full flex flex-col items-center z-20 gap-10 justify-center">
           <h1 className="text-7xl">Hey!</h1>
           <div className="flex items-center">
             <img
@@ -88,7 +89,7 @@ console.log(localStorage.name)
             />
             <div className=" text-2xl">
               <h1 className="text-7xl">What is your name?</h1>
-              <div className="flex items-center">
+              <div className="flex items-center gap-3">
                 <input id="nameInput" className="focus:outline-none bg-gray-100 border-2 border-gray-500 rounded-lg h-10 w-full outline-0 px-2 py-2.5" placeholder="Your name" />
                 <button className='flex   h-10 items-center bg-blue-600 focus:bg-blue-800   rounded-lg text-white hover:bg-blue-800 'onClick={handleSaveClick}>
                   Save
@@ -102,7 +103,7 @@ console.log(localStorage.name)
     :
     <div className="top-[270px] absolute w-full flex flex-col items-center z-20 gap-10 justify-center">
     <h1 className="text-7xl">Welcome back, {localStorage.name}!</h1>
-    <div className="flex items-center">
+    <div className="flex items-center gap-10">
       <img
         className='  w-[500px] opacity-80 inline-block px-2 py-1 cursor-pointer  ease-in-out duration-300 rounded-2xl'
         src={dolphin}
