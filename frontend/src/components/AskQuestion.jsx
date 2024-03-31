@@ -22,7 +22,7 @@ function AskQuestion() {
       text: textRef.current.value
     };
     // modalProps.setOpenModal(undefined);
-    axios.post(URL + 'api/text', formData.text, '')
+    axios.post(URL + 'api/text', {text:formData.text}, '')
       .then(response => {
         setData(response.data);
         console.log(response);
