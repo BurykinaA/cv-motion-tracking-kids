@@ -1,8 +1,13 @@
 import mediapipe as mp
+import numpy as np
 
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
 pose = mp_pose.Pose(static_image_mode=False)
+
+total_frames = 0
+correct_steps = 0
+
 
 
 def cosine_distance(landmarks1, landmarks2):
@@ -96,3 +101,28 @@ def detect_and_correct_errors(results_user, results_benchmark, threshold=0.5):
         errors.append("Неправильное расположение туловища")
 
     return errors
+
+
+def get_poses(image_user, image_benchmark):
+    global total_frames
+    global correct_steps
+    
+    total_frames += 1
+
+    results_user = pose.process(image_user)
+    results_benchmark = pose.process(image_benchmark)
+
+    errors = detect_and_correct_errors(results_user, results_benchmark)
+
+    correct_step = True if len(errors) == 0 else False
+    correct_steps += correct_step
+
+    percent = (correct_steps / (total_frames)) * 100
+
+    percent = "{:.2f}".format(percent)
+
+    return {
+        "Frame_Error": "".join(errors),
+        "Step": "CORRECT STEP" if correct_step else "WRONG STEP",
+        "Cumulative_Accuracy": f"{percent} %",
+    }
