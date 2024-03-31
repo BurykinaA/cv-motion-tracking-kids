@@ -29,8 +29,8 @@ Ensure Docker is installed on your machine. If Docker is not installed, you can 
 If you do not already have a local copy of the repository, clone it from the Git repository:
 
 ```bash
-git clone https://github.com/JokerEur/WebAccessibility.git
-cd WebAccessibility
+git clone https://github.com/BurykinaA/cv-motion-tracking-kids.git
+cd cv-motion-tracking-kids
 ```
 
 WITHOUT DOCKER
