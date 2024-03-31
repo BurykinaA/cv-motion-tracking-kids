@@ -114,7 +114,8 @@ function Home(props) {
 
   // useEffect(()=>{ console.log({...screen,originalVideo:origScreen.split(',')[1]})},[screen])
 const [data, setData]= useState({})
-  useEffect(()=>{axios.post(URL+'api/photo',
+  useEffect(()=>{
+    (screen&&origScreen)&&axios.post(URL+'api/photo',
   {
     userVideo: screen,
     originalVideo:origScreen.split(',')[1]
