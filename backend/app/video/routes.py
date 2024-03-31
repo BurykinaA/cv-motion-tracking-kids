@@ -4,7 +4,7 @@ from flask import current_app as app, jsonify, send_from_directory
 from flask_cors import cross_origin
 import os
 
-VIDEO_FOLDER = "backend/videos" 
+VIDEO_FOLDER = "backend/videos"
 
 
 @cross_origin()
