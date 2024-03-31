@@ -14,26 +14,27 @@ function AskQuestion() {
   const {isAuth}= useContext(AuthContext)
     const [openModal, setOpenModal] = useState('');
     const modalProps = { openModal, setOpenModal };
-    
+    const [data, setData]=useState()
     const textRef = useRef(null);
 
   const handleSend = () => {
     const formData = {
       text: textRef.current.value
     };
-    modalProps.setOpenModal(undefined);
+    // modalProps.setOpenModal(undefined);
     axios.post(URL + 'api/text', formData.text, '')
       .then(response => {
         setData(response.data);
-        // console.log(response);
+        console.log(response);
         textRef.current.value = '';
       })
       .catch(error => {
         textRef.current.value = '';
+        setData(error.message);
         console.error('Error fetching tasks:', error);
       });
   };
-    
+    useEffect(()=>{setData()},[openModal])
     return (
         <div className={'dark:text-white w-full '+isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>
              <button className={'min-w-max w-full gap-2 justify-center flex text-white items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 '+isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor} onClick={() => (modalProps.setOpenModal('dismissible'))}>
@@ -48,14 +49,25 @@ function AskQuestion() {
             </button>
             <Modal  className={'dark:text-white '+isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}  dismissible show={modalProps.openModal == 'dismissible'} size='4xl' onClose={() => modalProps.setOpenModal(undefined)}>
               <Modal.Body className='rounded dark:bg-gray-700'>
-              <p className=" mx-auto text-5xl">Ask me any question!</p>
-                     
-                       {/* <FirstLaunchForm modalProps={modalProps} setFontSize={setFontSize}/> */}
-                       <textarea ref={textRef} className=" h-[300px] focus:outline-none bg-gray-100 border-2 border-gray-500 rounded-lg h-10 w-full outline-0 px-2 py-2.5 dark:bg-gray-400" />
-                       <button className='w-full justify-center gap-2 flex text-white mt-3 items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 ' onClick={handleSend}>
+               <p className=" mx-auto text-5xl">Ask me any question!</p>
+                { 
+                  data?
+                    <>
+                      <p className=" mx-auto text-3xl">{data}</p>
+                      <button className='w-full justify-center gap-2 flex text-white mt-3 items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 ' onClick={()=>setData()}>
+                          Another question
+                        </button>
+                    </>
+                   
+                  :
+
+                    <>
+                    <textarea ref={textRef} className=" h-[300px] focus:outline-none bg-gray-100 border-2 border-gray-500 rounded-lg h-10 w-full outline-0 px-2 py-2.5 dark:bg-gray-400 text-3xl" />
+                      <button className='w-full justify-center gap-2 flex text-white mt-3 items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 ' onClick={handleSend}>
                         Send
                       </button>
-            
+                    </>
+                }
               </Modal.Body>
             </Modal>
         </div>
