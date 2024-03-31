@@ -140,8 +140,8 @@ def get_picture_dtw():
     global all_user
     global all_benchmarks
 
-    get_pca_graph(all_user, all_benchmarks)
-    return 'help me'
+    a, b = get_pca_graph(all_user, all_benchmarks)
+    return a, b
 
 
 
