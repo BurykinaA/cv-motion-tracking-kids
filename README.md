@@ -1,5 +1,5 @@
 # cv-motion-tracking-kids
-```markdown
+
 ## Technologies
 This project leverages a suite of modern technologies to create a powerful and flexible web application. Below are the key components that help us achieve our goals:
 
@@ -12,11 +12,6 @@ This project leverages a suite of modern technologies to create a powerful and f
 - **Component Architecture**: React is based on components, simplifying the creation of reusable interface elements and enhancing project maintainability.
 - **Performance**: React uses a virtual DOM for efficient updates to the user interface and fast rendering of components.
 - **Debugging**: React provides developer tools for convenient debugging of components and the application as a whole.
-
-### SQLite
-- **Lightweight and Embedded**: SQLite is directly embedded into your application, simplifying database deployment and management.
-- **Portability**: SQLite databases are easily portable between different operating systems and architectures.
-- **Transactions and ACID Compliance**: SQLite ensures data consistency, supports transactions, and complies with ACID standards.
 
 ### Docker
 - **Isolation**: Containers allow for the isolation of the application and its dependencies from the host environment, reducing conflicts and ensuring reliability.
