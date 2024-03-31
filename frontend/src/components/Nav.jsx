@@ -2,11 +2,9 @@ import React, { useContext, useState } from 'react';
 
 import '../App.css';
 import {Link} from 'react-router-dom';
-import VoiceSearch from './VoiceSearch';
 import { Modal } from 'flowbite-react';
 import FirstLaunchForm from "../components/FirstLaunchForm";
 import Help from './Help';
-import { categories } from '../data/editProject';
 import { AuthContext } from '../context/context';
 
 function Nav({setFilteredData,  setFontSize, products, name} ) {

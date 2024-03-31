@@ -24,7 +24,7 @@ function Face({setScreen, time}) {
     ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight);
   
     const imageData = canvasElement.toDataURL('image/jpeg');
-    setScreen({photo: imageData.split(',')[1]})
+    setScreen(imageData.split(',')[1])
    
 
   };

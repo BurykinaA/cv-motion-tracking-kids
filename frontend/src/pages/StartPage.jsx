@@ -9,8 +9,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from "../components/Nav";
 import { AuthContext, ProjectsContext } from "../context/context";
 import dolphin from '../assets/dolphin.png'
-import { Modal } from "flowbite-react";
 import DownloadVideo from "../components/DownloadVideo";
+import AskQuestion from "../components/AskQuestion";
 
 
 
@@ -72,7 +72,7 @@ console.log(localStorage.name)
       
   return (
         
-    <div className="h-screen relative">
+    <div className="h-screen relative dark:text-white">
       <div className={"h-screen w-full bg-gray-50 dark:bg-slate-950 dark:text-white  absolute z-0 top-[70px] left-0 "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}></div>
       
       <Nav className={"z-30 dark:bg-slate-950 dark:text-white  "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor} setFilteredData={setFilteredData} setFontSize={setFontSize}/>
@@ -108,18 +108,21 @@ console.log(localStorage.name)
         src={dolphin}
         alt='/'
       />
-      <div className="">
+      <div className={isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>
         {/* <h1 className="text-7xl">What is your name?</h1> */}
         <div className="flex flex-col gap-3 items-center w-[400px] text-2xl">
           {/* <input id="nameInput" className="focus:outline-none bg-gray-100  border-2 border-gray-500 rounded-lg h-10 w-full outline-0 px-2 py-2.5" placeholder="Your name" /> */}
          
             <DownloadVideo/>
+            <Link to='/library'className='no-underline w-full'>
             <button className='w-full justify-center gap-2 flex text-white  items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 '>
               <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 21 20" fill="none">
                 <path d="M3.5 17H17.5M10.5 14V3M10.5 14L14 10.5M10.5 14L7 10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               Video library
             </button>
+            </Link>
+           
 
             <button className='w-full justify-center gap-2 flex text-white  items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 '>
               
@@ -130,16 +133,8 @@ console.log(localStorage.name)
               </svg>
                About app
             </button>
-
-            <button className='w-full justify-center gap-2 flex text-white  items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 '>
-              
-              <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none">
-                <path d="M10.125 8.875C10.125 7.83947 10.9645 7 12 7C13.0355 7 13.875 7.83947 13.875 8.875C13.875 9.56245 13.505 10.1635 12.9534 10.4899C12.478 10.7711 12 11.1977 12 11.75V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-                <circle cx="12" cy="16" r="1" fill="currentColor"/>
-                <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-              </svg>
-              Ask a question
-            </button>
+          <AskQuestion/>
+           
 
             <button className='w-full justify-center gap-2 flex text-white  items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 '>
               

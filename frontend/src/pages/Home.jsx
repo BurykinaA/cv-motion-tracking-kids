@@ -8,11 +8,13 @@ import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from "../components/Nav";
 import axios from "axios";
-import {postTaskData, URL} from '../data/editProject'
+import {URL} from '../data/editProject'
 import { AuthContext, ProjectsContext, VideoContext } from "../context/context";
 import Face from "../components/Face";
 import { Modal } from "flowbite-react";
 import DownloadVideo from "../components/DownloadVideo";
+import StatusBar from "../components/StatusBar";
+import AskQuestion from "../components/AskQuestion";
 
 
 function Home(props) {
@@ -67,10 +69,11 @@ function Home(props) {
   const videoRef = useRef(null);
 
   // !!!!!!!
-  const URL='/'
+//   const URL='http://127.0.0.1:5000/'
 
   const [screen, setScreen]= useState('')
   const [origScreen, setOrigScreen] = useState('')
+  const [persentage, setPercentage]= useState(0)
   let time=0
   useEffect(() => {
     const video = videoRef.current;
@@ -89,10 +92,11 @@ function Home(props) {
     
     const handleTimeUpdate = () => {
       const currentTime = Math.floor(video.currentTime);
-
+// console.log(video.duration)
+      setPercentage(parseInt((video.currentTime/video.duration)*100))
       if (time!=currentTime) {
         time=currentTime
-        console.log(currentTime, video.currentTime, time)
+        // console.log(currentTime, video.currentTime, time)
         captureFrame();
         setSet(true)
       } else setSet(false)
@@ -107,12 +111,18 @@ function Home(props) {
     };
   }, []);
 
-  useEffect(()=>{ console.log({...screen,screen:origScreen.split(',')[1]})},[screen])
-
-  useEffect(()=>{axios.post(URL+'api/photo',{...screen,screen:origScreen.split(',')[1]}, '')
+  // useEffect(()=>{ console.log({...screen,originalVideo:origScreen.split(',')[1]})},[screen])
+const [data, setData]= useState({})
+  useEffect(()=>{axios.post(URL+'api/photo',
+  {
+    userVideo: screen,
+    originalVideo:origScreen.split(',')[1]
+  },
+   '')
   .then(response=>
     {
-      console.log(response)
+      setData(response.data)
+      // console.log(response)
     })
     .catch(error=>{
       console.error('Error fetching tasks:', error);
@@ -127,55 +137,34 @@ function Home(props) {
         video.pause();
       }
     };
+
   return (
         
-    <div className="h-screen relative">
+    <div className="h-screen relative dark:text-white">
       <div className={"h-screen w-full bg-gray-50 dark:bg-slate-950 dark:text-white  absolute z-0 top-[70px] left-0 "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}></div>
       
       <Nav className={"z-30 dark:bg-slate-950 dark:text-white  "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor} setFilteredData={setFilteredData} setFontSize={setFontSize}/>
      
       <div className="top-[170px] absolute w-full flex flex-col items-center z-20 gap-10 ">
-      <div className="flex items-center gap-10 justify-between w-full px-10">
-        <button className='flex gap-2 w-max  items-center bg-blue-600   rounded-lg text-white hover:bg-blue-800 ' onClick={() => modalProps.setOpenModal('dismissible')}>
-             
-          <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 24 24" fill="none">
-            <path d="M10.125 8.875C10.125 7.83947 10.9645 7 12 7C13.0355 7 13.875 7.83947 13.875 8.875C13.875 9.56245 13.505 10.1635 12.9534 10.4899C12.478 10.7711 12 11.1977 12 11.75V13" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="16" r="1" fill="currentColor"/>
-            <path d="M7 3.33782C8.47087 2.48697 10.1786 2 12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 10.1786 2.48697 8.47087 3.33782 7" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
-          </svg>
-          Ask a question
-        </button>
-        <div className="text-5xl flex items-center gap-10">
-          <p className="m-0">87%</p>
-          <p className="m-0">You are doing great, rockstar!</p>
-        </div>
-        <div className="w-max">
-        <DownloadVideo/>
-        </div>
+        <div className={"flex items-center gap-10 justify-between w-full px-10 "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>
+            <div className="w-max">
+                <AskQuestion/>
+            </div>
         
-                   <Modal  dismissible show={modalProps.openModal === 'dismissible'} size='4xl' onClose={() => modalProps.setOpenModal(undefined)}>
-                    
-                     <Modal.Body className='rounded dark:bg-gray-700 flex flex-col justify-center'>
-                        <p className=" mx-auto text-5xl">Ask me any question!</p>
-                     
-                       {/* <FirstLaunchForm modalProps={modalProps} setFontSize={setFontSize}/> */}
-                       <textarea className=" h-[300px] focus:outline-none bg-gray-100 border-2 border-gray-500 rounded-lg h-10 w-full outline-0 px-2 py-2.5"/>
-                       <button className='w-full justify-center gap-2 flex text-white mt-3 items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 '>
-                        Send
-                      </button>
-                     </Modal.Body>
-                   </Modal>
+            <div className={"text-5xl flex items-center gap-10 "}>
+                <p className="m-0">{data.Cumulative_Accuracy}</p>
+                <p className="m-0">You are doing great, rockstar! </p>
+                <p className="m-0 text-base"> {data.Step}</p>
+            </div>
+            <div className="w-max ">
+                <DownloadVideo/>
+            </div>
         </div>
       
         <div className="flex items-center gap-10 justify-center">
           <Face setScreen={setScreen} time={set} />
-          <div className="relative">
-          <div className="absolute bottom-0 left-0 bg-green-200 w-[40px] h-[274px]  border-[3px] border-green-400 border-t-0 rounded-b-full  z-10"/>
-            <div className="bg-green-50 w-[40px] h-[474px] rounded-full border-[3px] border-green-400 relative"/>
-            
-          </div>
-          {/* <div ></div> */}
-          {/* <div id="video-container"className="bg-red-100 w-[632px] h-[474px] "></div> */}
+          <StatusBar video={ videoRef.current}/>
+          
           <div id="video-container" className="bg-red-100 w-[677px] h-[474px]"  onClick={()=>toggleVideo}>
             <video ref={videoRef} controls >
               <source src={video.src} type="video/mp4" />
@@ -184,7 +173,7 @@ function Home(props) {
           </div>
           
         </div>
-        <p className="m-0 text-5xl">(!) Tip: Do some tigidik with your right arm and then some tutun with other arm and repeat for 1 minute</p>
+        <p className={"m-0 text-5xl "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>(!) Tip: Do some tigidik with your right arm and then some tutun with other arm and repeat for 1 minute</p>
 
       </div>
      
