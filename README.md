@@ -56,11 +56,3 @@ The application should now be accessible and ready for use at:
 
 Linux and Windows: http://localhost:5173
 
-### Step 4: Stop the Containers (if you used `docker-compose up --build -d`)
-To stop the containers, execute the following command:
-
-```bash
-docker-compose down
-```
-This will terminate all containers associated with the application.
-```
