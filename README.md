@@ -31,6 +31,24 @@ git clone https://github.com/JokerEur/WebAccessibility.git
 cd WebAccessibility
 ```
 
+WITHOUT DOCKER
+In the main folder:
+1) `python -m venv venv`
+2) For Command Prompt: `venv\Scripts\activate.bat`  
+   For Bash: `source venv/bin/activate`
+3) `pip install -r requirements.txt`
+
+To start the backend:  
+1) `cd backend`
+2) `flask run`
+
+To start the frontend:
+1) `cd frontend`
+2) `npm i`
+3) `npm run dev`
+
+WITH DOCKER
+
 ### Step 2: Launch Docker Compose
 Now, use Docker Compose to build and launch the application's containers.
 
