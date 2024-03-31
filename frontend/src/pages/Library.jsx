@@ -8,6 +8,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from "../components/Nav";
 import { AuthContext, ProjectsContext, VideoContext } from "../context/context";
 import DownloadVideo from "../components/DownloadVideo";
+import axios from "axios";
+import { URL } from "../data/editProject";
 
 
 
@@ -33,6 +35,19 @@ function Library(props) {
 
   const [openModal, setOpenModal] = useState('');
   const modalProps = { openModal, setOpenModal };
+
+  useEffect(()=>{
+    axios.get(URL+'api/video', '')
+    .then(response=>
+      {
+        // setData(response.data)
+        console.log(response)
+      })
+      .catch(error=>{
+        console.error('Error fetching tasks:', error);
+      })
+
+  },[])
   
   return (
         

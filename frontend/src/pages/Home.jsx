@@ -167,7 +167,7 @@ const [data, setData]= useState({})
           <Face setScreen={setScreen} time={set} />
           <StatusBar video={ videoRef.current}/>
           
-          <div id="video-container" className="bg-red-100  max-h-[600px] max-w-[677px] h-[474px]"  onClick={()=>toggleVideo}>
+          <div id="video-container" className="bg-red-100   max-w-[677px] h-[474px]"  onClick={()=>toggleVideo}>
            {video&& <video ref={videoRef} controls className="h-full">
               <source src={video.src} type="video/mp4" />
               Ваш браузер не поддерживает видео.
