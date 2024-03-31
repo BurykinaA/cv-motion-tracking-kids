@@ -46,8 +46,8 @@ function Library(props) {
       
       <Nav className={"z-30 dark:bg-slate-950 dark:text-white  "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}  setFontSize={setFontSize}/>
      
-      <div className="top-[170px] absolute w-full flex flex-col items-center z-20 gap-10 ">
-      <div className="flex items-center gap-10 justify-between w-full px-10">
+      <div className={"top-[170px] absolute w-full flex flex-col items-center z-20 gap-10 "+isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>
+      <div className="flex items-center gap-10 justify-between w-full px-10 ">
        <p className="text-6xl">Video library</p>
         
         <div className="w-max">

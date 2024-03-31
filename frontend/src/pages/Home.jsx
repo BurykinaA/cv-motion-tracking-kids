@@ -138,10 +138,6 @@ const [data, setData]= useState({})
       }
     };
 
-    // useEffect(() => {
-    //   // Обновляем компонент при изменении значения persentage
-    //   console.log(persentage);
-    // }, [persentage]);
   return (
         
     <div className="h-screen relative dark:text-white">
@@ -150,37 +146,25 @@ const [data, setData]= useState({})
       <Nav className={"z-30 dark:bg-slate-950 dark:text-white  "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor} setFilteredData={setFilteredData} setFontSize={setFontSize}/>
      
       <div className="top-[170px] absolute w-full flex flex-col items-center z-20 gap-10 ">
-      <div className="flex items-center gap-10 justify-between w-full px-10">
-       
-        <AskQuestion/>
-        <div className="text-5xl flex items-center gap-10">
-          <p className="m-0">{data.Cumulative_Accuracy}</p>
-          <p className="m-0">You are doing great, rockstar! </p>
-          <p className="m-0 text-base"> {data.Step}</p>
-        </div>
-        <div className="w-max">
-        <DownloadVideo/>
-        </div>
+        <div className={"flex items-center gap-10 justify-between w-full px-10 "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>
+            <div className="w-max">
+                <AskQuestion/>
+            </div>
         
-                   <Modal  dismissible show={modalProps.openModal === 'dismissible'} size='4xl' onClose={() => modalProps.setOpenModal(undefined)}>
-                    
-                     <Modal.Body className='rounded dark:bg-gray-700 flex flex-col justify-center'>
-                        <p className=" mx-auto text-5xl">Ask me any question!</p>
-                     
-                       {/* <FirstLaunchForm modalProps={modalProps} setFontSize={setFontSize}/> */}
-                       <textarea className=" h-[300px] focus:outline-none bg-gray-100 border-2 border-gray-500 rounded-lg h-10 w-full outline-0 px-2 py-2.5"/>
-                       <button className='w-full justify-center gap-2 flex text-white mt-3 items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 '>
-                        Send
-                      </button>
-                     </Modal.Body>
-                   </Modal>
+            <div className={"text-5xl flex items-center gap-10 "}>
+                <p className="m-0">{data.Cumulative_Accuracy}</p>
+                <p className="m-0">You are doing great, rockstar! </p>
+                <p className="m-0 text-base"> {data.Step}</p>
+            </div>
+            <div className="w-max ">
+                <DownloadVideo/>
+            </div>
         </div>
       
         <div className="flex items-center gap-10 justify-center">
           <Face setScreen={setScreen} time={set} />
           <StatusBar video={ videoRef.current}/>
-          {/* <div ></div> */}
-          {/* <div id="video-container"className="bg-red-100 w-[632px] h-[474px] "></div> */}
+          
           <div id="video-container" className="bg-red-100 w-[677px] h-[474px]"  onClick={()=>toggleVideo}>
             <video ref={videoRef} controls >
               <source src={video.src} type="video/mp4" />
@@ -189,7 +173,7 @@ const [data, setData]= useState({})
           </div>
           
         </div>
-        <p className="m-0 text-5xl">(!) Tip: Do some tigidik with your right arm and then some tutun with other arm and repeat for 1 minute</p>
+        <p className={"m-0 text-5xl "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>(!) Tip: Do some tigidik with your right arm and then some tutun with other arm and repeat for 1 minute</p>
 
       </div>
      
