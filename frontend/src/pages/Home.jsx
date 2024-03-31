@@ -8,7 +8,7 @@ import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from "../components/Nav";
 import axios from "axios";
-import {URL} from '../data/editProject'
+import {URL, bad, good} from '../data/editProject'
 import { AuthContext, ProjectsContext, VideoContext } from "../context/context";
 import Face from "../components/Face";
 import { Modal } from "flowbite-react";
@@ -94,7 +94,7 @@ function Home(props) {
     const handleTimeUpdate = () => {
       const currentTime = Math.floor(video.currentTime);
 // console.log(video.duration)
-      
+setPercentage(parseInt((video.currentTime / video.duration) * 100))
       if (time!=currentTime&& currentTime%2==0) {
         time=currentTime
         // console.log(currentTime, video.currentTime, time)
@@ -124,9 +124,11 @@ const [data, setData]= useState({})
   .then(response=>
     {
       setData(response.data)
+      if (response.data.error&&response.data.error== 'no_body')setMessage('No body')
       // console.log(response)
     })
     .catch(error=>{
+        setMessage(error.response.data.error)
       console.error('Error fetching tasks:', error);
     })},[screen])
   
@@ -140,6 +142,28 @@ const [data, setData]= useState({})
       }
     };
     useEffect(()=>{console.log(video)},[video])
+    const [graph, setGraph]=useState()
+    useEffect(()=>{
+
+        persentage==100&&
+        axios.get(URL+'api/photo/graph','')
+        .then(response=>
+            {
+                setGraph(response.data)
+            // console.log(response)
+            })
+            .catch(error=>{
+            console.error('Error fetching tasks:', error);
+            })
+
+    },[persentage])
+    const [message, setMessage]=useState('')
+    useEffect(()=>{
+        
+        persentage>50?
+        setMessage(good[persentage%13])
+        :  setMessage(bad[persentage%13])
+    },[ data.Cumulative_Accuracy])
   return (
         
     <div className="h-screen relative dark:text-white">
@@ -154,9 +178,9 @@ const [data, setData]= useState({})
             </div>
         
             <div className={"text-5xl flex items-center gap-10 "}>
-                <p className="m-0">{data.Cumulative_Accuracy}</p>
-                <p className="m-0">You are doing great, rockstar! </p>
-                <p className="m-0 text-base"> {data.Step}</p>
+                <p className="m-0 min-w-max">{data.Cumulative_Accuracy}</p>
+                <p className="m-0">{message}</p>
+                <p className="m-0 text-base min-w-max"> {data.Step}</p>
             </div>
             <div className="w-[180px] ">
                 {/* <DownloadVideo home='true'/> */}
@@ -176,7 +200,7 @@ const [data, setData]= useState({})
           
         </div>
         <p className={"m-0 text-5xl "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>(!) Tip: Do some tigidik with your right arm and then some tutun with other arm and repeat for 1 minute</p>
-
+        
       </div>
      
     </div>
