@@ -83,7 +83,7 @@ function Nav({setFilteredData,  setFontSize, products, name} ) {
             </Modal>
           </>
         }
-         <button className='flex gap-2 mx-3 items-center bg-blue-600 focus:bg-blue-800 hover:ring-8 hover:ring-blue-500 focus:ring-blue-500 focus:ring-8   rounded-lg text-white hover:bg-blue-800 ' onClick={() =>( localStorage.setItem('name', ''), setIsAuth({...isAuth, name:''}))}>
+         <button className='flex gap-2 mr-20 items-center bg-blue-600 focus:bg-blue-800 hover:ring-8 hover:ring-blue-500 focus:ring-blue-500 focus:ring-8   rounded-lg text-white hover:bg-blue-800 ' onClick={() =>( localStorage.setItem('name', ''), setIsAuth({...isAuth, name:''}))}>
          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" class="w-6 h-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15m3 0 3-3m0 0-3-3m3 3H9" />
           </svg>
@@ -91,7 +91,7 @@ function Nav({setFilteredData,  setFontSize, products, name} ) {
 
               Quit
             </button>
-        <Help/>
+        {/* <Help/> */}
        
         </div>
       </div> 
