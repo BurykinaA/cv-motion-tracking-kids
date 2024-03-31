@@ -45,7 +45,7 @@ function Face({setScreen, time}) {
   const capture = () => {
     const imageSrc = webcamRef.current.getScreenshot();
     // Теперь вы можете использовать imageSrc, чтобы показать снимок или выполнить другие операции с ним
-    console.log(imageSrc);
+    // console.log(imageSrc);
     setScreen(imageSrc.split(',')[1]);
   };
 
