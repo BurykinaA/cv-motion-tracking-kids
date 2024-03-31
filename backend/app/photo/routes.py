@@ -14,7 +14,9 @@ from app.utils.detection import detect_and_correct_errors
 @cross_origin()
 @photo.post("/api/photo")
 def make_correction():
-    data = request.json  # Теперь ожидаем список JSON объектов
+    data = request.json
+    
+    #print(data)  # Теперь ожидаем список JSON объектов
     photos = []
 
     image_bytes = base64.b64decode(data["userVideo"])
