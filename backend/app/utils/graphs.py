@@ -5,6 +5,7 @@ from fastdtw import fastdtw
 from scipy.spatial.distance import euclidean
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
+import base64
 
 def image_to_base64(path):
     with open(path, "rb") as image_file:
@@ -77,4 +78,4 @@ def get_pca_graph(user_landmarks_sequence, benchmark_landmarks_sequence):
     plt.tight_layout()
     plt.savefig("distance.png")
 
-    return image_to_base64("app/dtw_alignment.png"), image_to_base64("app/distance.png")
+    return image_to_base64("dtw_alignment.png"), image_to_base64("distance.png")
