@@ -10,6 +10,8 @@ import { AuthContext, ProjectsContext, VideoContext } from "../context/context";
 import DownloadVideo from "../components/DownloadVideo";
 import axios from "axios";
 import { URL } from "../data/editProject";
+import DoxsType from "../components/DoxsType";
+import { Link } from "react-router-dom";
 
 
 
@@ -36,18 +38,38 @@ function Library(props) {
   const [openModal, setOpenModal] = useState('');
   const modalProps = { openModal, setOpenModal };
 
+  const [data, setData] =useState() 
+  const [load, setLoad]= useState(true)
+
   useEffect(()=>{
     axios.get(URL+'api/video', '')
     .then(response=>
       {
         // setData(response.data)
-        console.log(response)
+        console.log(response.data)
+        setData(response.data)
+        response.data.map(item=>{localStorage.setItem(item, '1')})
+        // response.data.map(item=>{
+        //   axios.get(URL+'api/video/'+item, '')
+        //   .then(responsee=>
+        //     {
+        //       // setData(response.data)
+        //       console.log(responsee)
+              
+        //     })
+        //     .catch(error=>{
+        //       console.error('Error fetching tasks:', error);
+        //     })
+        // })
+        setLoad(false)
       })
       .catch(error=>{
         console.error('Error fetching tasks:', error);
+        setLoad(false)
       })
 
   },[])
+  console.log(localStorage)
   
   return (
         
@@ -67,8 +89,21 @@ function Library(props) {
                  
         </div>
       
-        <div className="flex items-center gap-10 justify-center h-[500px]">
-        <p className="text-4xl my-auto">nothing’s here yet :(</p>
+        <div className="flex flex-col items-center gap-10 justify-center h-[500px] min-w-[500px]">
+        {!load?
+        data&&data.map(item=>
+          <Link to='/train' className="no-underline min-w-max w-full">
+            <div onClick={()=>console.log('pup')} className='min-w-max w-full bg-gray-50 dark:bg-gray-500 shadow-sm rounded-lg flex items-center justify-between p-[16px] text-2xl'>
+              <div className='w-max flex gap-3'>
+                <p className='mb-0'>{item}</p>
+                <p className='mb-0 text-blue-600 font-bold'>{localStorage[item]==""?'New!':"Your score: "+localStorage[item]}</p>
+              </div>
+              
+              <DoxsType type={item.substring( item.lastIndexOf('.') + 1)}/>
+            </div>
+          </Link>
+          )
+        :<p className="text-4xl my-auto">nothing’s here yet :(</p>}
           </div>
           
         </div>
