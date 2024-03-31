@@ -101,7 +101,7 @@ console.log(localStorage.name)
       
     
     :
-    <div className="top-[270px] absolute w-full flex flex-col items-center z-20 gap-10 justify-center">
+    <div className="top-[170px] absolute w-full flex flex-col items-center z-20 gap-10 justify-center">
     <h1 className="text-7xl">Welcome back, {localStorage.name}!</h1>
     <div className="flex items-center gap-10">
       <img
