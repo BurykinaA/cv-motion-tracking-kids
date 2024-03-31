@@ -21,4 +21,4 @@ def get_video(filename):
     if not os.path.exists(filepath):
         print(f"Файл не найден: {filepath}")
         abort(404)  # Файл не найден
-    return send_from_directory(r'D:\burningheroes\backend\videos', filename, as_attachment=True)
+    return send_from_directory("../"+VIDEO_FOLDER, filename, as_attachment=True)
