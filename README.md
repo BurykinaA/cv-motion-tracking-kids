@@ -1,5 +1,7 @@
 # cv-motion-tracking-kids
 
+our app - http://178.154.223.211:5173/
+
 ## Technologies
 This project leverages a suite of modern technologies to create a powerful and flexible web application. Below are the key components that help us achieve our goals:
 
