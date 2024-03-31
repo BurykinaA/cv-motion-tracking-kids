@@ -1,5 +1,5 @@
 // изменение даннных о проекте
-export const  URL='http://localhost:5001/'
+export const  URL='http://127.0.0.1:5000/'
 
 
 
@@ -21,17 +21,3 @@ export var postTaskData= {
   link:false,
   
 }
-export const categories=[
-  {
-    id: 1,
-    name: "Мелкая бытовая техника",
-},
-{
-    id: 2,
-    name: "Компьютерная техника",
-},
-{
-    id: 3,
-    name: "Офис и канцелярия",
-}
-]

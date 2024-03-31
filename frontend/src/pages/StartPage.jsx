@@ -9,7 +9,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from "../components/Nav";
 import { AuthContext, ProjectsContext } from "../context/context";
 import dolphin from '../assets/dolphin.png'
-import { Modal } from "flowbite-react";
 import DownloadVideo from "../components/DownloadVideo";
 import AskQuestion from "../components/AskQuestion";
 

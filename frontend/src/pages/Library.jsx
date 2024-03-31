@@ -1,19 +1,14 @@
 // Домашняя страница
 
 import React, { Suspense, useContext, useEffect , useRef, useState, } from "react";
-import { Link, useParams} from 'react-router-dom';
 import '../App.css';
 import 'flowbite';
 import '../index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Nav from "../components/Nav";
-import axios from "axios";
-import {postTaskData} from '../data/editProject'
 import { AuthContext, ProjectsContext, VideoContext } from "../context/context";
-import Face from "../components/Face";
-import { Modal } from "flowbite-react";
 import DownloadVideo from "../components/DownloadVideo";
-import StatusBar from "../components/StatusBar";
+
 
 
 function Library(props) {
