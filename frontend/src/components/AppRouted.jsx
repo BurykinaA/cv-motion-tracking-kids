@@ -1,15 +1,23 @@
-import React, { Suspense, useEffect , useState, } from "react";
+import React, { Suspense, useContext, useEffect , useState, } from "react";
 import '../App.css';
 import { Routes, Route, Navigate, redirect } from 'react-router-dom';
-import { privateRoutes } from '../router/routes';
+import { privateRoutes, publicRoutes } from '../router/routes';
+import { AuthContext } from "../context/context";
 
 
 const AppRouted = () => {
     let routesToRender;
+    // const {isAuth}= useContext(AuthContext)
 
-    routesToRender = privateRoutes.map(({ path, Component }) => (
-        <Route key={path} path={path} element={<Component/>} exact={true} />
-      ));
+    {localStorage.name!=''?
+        routesToRender = privateRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component/>} exact={true} />
+        ))
+    :
+        routesToRender = publicRoutes.map(({ path, Component }) => (
+            <Route key={path} path={path} element={<Component/>} exact={true} />
+        ))
+    }
     return (
         <Routes>
             {routesToRender}

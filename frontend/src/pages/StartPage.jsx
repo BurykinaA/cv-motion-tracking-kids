@@ -72,7 +72,7 @@ console.log(localStorage.name)
       
   return (
         
-    <div className="h-screen relative">
+    <div className="h-screen relative dark:text-white">
       <div className={"h-screen w-full bg-gray-50 dark:bg-slate-950 dark:text-white  absolute z-0 top-[70px] left-0 "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}></div>
       
       <Nav className={"z-30 dark:bg-slate-950 dark:text-white  "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor} setFilteredData={setFilteredData} setFontSize={setFontSize}/>
@@ -108,18 +108,21 @@ console.log(localStorage.name)
         src={dolphin}
         alt='/'
       />
-      <div className="">
+      <div className={isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>
         {/* <h1 className="text-7xl">What is your name?</h1> */}
         <div className="flex flex-col gap-3 items-center w-[400px] text-2xl">
           {/* <input id="nameInput" className="focus:outline-none bg-gray-100  border-2 border-gray-500 rounded-lg h-10 w-full outline-0 px-2 py-2.5" placeholder="Your name" /> */}
          
             <DownloadVideo/>
+            <Link to='/library'className='no-underline w-full'>
             <button className='w-full justify-center gap-2 flex text-white  items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 '>
               <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 21 20" fill="none">
                 <path d="M3.5 17H17.5M10.5 14V3M10.5 14L14 10.5M10.5 14L7 10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
               </svg>
               Video library
             </button>
+            </Link>
+           
 
             <button className='w-full justify-center gap-2 flex text-white  items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 '>
               

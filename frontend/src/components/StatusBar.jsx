@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
+import { AuthContext } from '../context/context';
 
 function StatusBar({ video }) {
   const [status, setStatus] = useState(0);
-
+  const {isAuth}= useContext(AuthContext)
   useEffect(() => {
+    
     let timeoutId;
 
     const handleTimeUpdate = () => {
@@ -49,9 +51,9 @@ function StatusBar({ video }) {
   };
 
   return (
-    <div style={containerStyle}>
+    <div style={containerStyle} className={isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>
       <div style={backgroundBarStyle}>
-        <div style={progressBarStyle} />{console.log(status)}
+        <div style={progressBarStyle} />
       </div>
     </div>
   );

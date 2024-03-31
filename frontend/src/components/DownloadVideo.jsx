@@ -46,15 +46,15 @@ function DownloadVideo() {
 });
 
 useEffect(()=>{console.log(file)},[file])
-
+useEffect(()=>{setFile('')},[openModal])
     
     return (
-        <>
+        <div className={'w-max '+isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>
              <button className='min-w-max w-full gap-2 justify-center flex text-white items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 ' onClick={() => modalProps.setOpenModal('dismissible')}>
           <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 21 20" fill="none">
             <path d="M3.5 17H17.5M10.5 14V3M10.5 14L14 10.5M10.5 14L7 10.5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-              Download video
+          Upload video
             </button>
             <Modal  dismissible show={modalProps.openModal == 'dismissible'} size='4xl' onClose={() => modalProps.setOpenModal(undefined)}>
               <Modal.Body className='rounded dark:bg-gray-700'>
@@ -81,8 +81,8 @@ useEffect(()=>{console.log(file)},[file])
                     <input id="dropzone-file" type="file" class="hidden" onChange={()=>setDownloaded(true)}/>
                 </label>
             </div> }
-            <Link to='/train'>
-            <button className='w-full justify-center gap-2 flex text-white mt-3 items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 '>
+            <Link to='/train' aria-disabled={file==''} className='no-underline'>
+            <button disabled={file==''} className='w-full justify-center gap-2 flex text-gray-50 mt-3 items-center bg-blue-600 rounded-lg  hover:bg-blue-800 disabled:bg-gray-200 disabled:text-gray-500 '>
               Start
             </button>
             </Link>
@@ -93,7 +93,7 @@ useEffect(()=>{console.log(file)},[file])
             
               </Modal.Body>
             </Modal>
-        </>
+        </div>
     );
 }
 
