@@ -1,5 +1,6 @@
 import mediapipe as mp
 import numpy as np
+from app.utils.graphs import get_pca_graph
 
 mp_pose = mp.solutions.pose
 mp_drawing = mp.solutions.drawing_utils
@@ -7,6 +8,9 @@ pose = mp_pose.Pose(static_image_mode=False)
 
 total_frames = 0
 correct_steps = 0
+
+all_user = []
+all_benchmarks = []
 
 
 def cosine_distance(landmarks1, landmarks2):
@@ -105,11 +109,16 @@ def detect_and_correct_errors(results_user, results_benchmark, threshold=0.5):
 def get_poses(image_user, image_benchmark):
     global total_frames
     global correct_steps
+    global all_user
+    global all_benchmarks
 
     total_frames += 1
 
     results_user = pose.process(image_user)
     results_benchmark = pose.process(image_benchmark)
+
+    all_user.append([(lm.x, lm.y) for lm in results_user.pose_landmarks.landmark])
+    all_benchmarks.append([(lm.x, lm.y) for lm in results_benchmark.pose_landmarks.landmark])
 
     errors = detect_and_correct_errors(results_user, results_benchmark)
 
@@ -125,3 +134,14 @@ def get_poses(image_user, image_benchmark):
         "Step": "CORRECT STEP" if correct_step else "WRONG STEP",
         "Cumulative_Accuracy": f"{percent} %",
     }
+
+
+def get_picture_dtw():
+    global all_user
+    global all_benchmarks
+
+    get_pca_graph(all_user, all_benchmarks)
+    return 'help me'
+
+
+

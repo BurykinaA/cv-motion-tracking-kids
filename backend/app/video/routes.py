@@ -17,4 +17,5 @@ def list_videos():
 @cross_origin()
 @photo.get("/api/video/<filename>")
 def get_video(filename):
+    print(filepath = os.path.join(VIDEO_FOLDER, filename))
     return send_from_directory(VIDEO_FOLDER, filename)

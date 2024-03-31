@@ -9,7 +9,7 @@ import base64
 import io
 import cv2
 
-from app.utils.detection import get_poses
+from app.utils.detection import get_poses, get_picture_dtw
 
 
 @cross_origin()
@@ -45,3 +45,12 @@ def make_correction():
     }
 
     return make_response(response)
+
+
+@cross_origin()
+@photo.get("/api/photo/graph")
+def get_graph():
+    a, b = get_picture_dtw()
+    ans = {'dtw': a,
+           'dtw_total_distance': b}
+    return make_response(ans)
