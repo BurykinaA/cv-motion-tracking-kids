@@ -94,6 +94,7 @@ function Home(props) {
     const handleTimeUpdate = () => {
       const currentTime = Math.floor(video.currentTime);
 // console.log(video.duration)
+(video.currentTime<video.duration)&&setGraph()
 setPercentage(parseInt((video.currentTime / video.duration) * 100))
       if (time!=currentTime&& currentTime%2==0) {
         time=currentTime
@@ -145,16 +146,16 @@ const [data, setData]= useState({})
     const [graph, setGraph]=useState()
     useEffect(()=>{
 
-        // persentage==100&&
-        // axios.get(URL+'api/photo/graph','')
-        // .then(response=>
-        //     {
-        //         setGraph(response.data)
-        //     // console.log(response)
-        //     })
-        //     .catch(error=>{
-        //     console.error('Error fetching tasks:', error);
-        //     })
+        persentage==100&&
+        axios.get(URL+'api/photo/graph','')
+        .then(response=>
+            {
+                setGraph(response.data)
+            console.log(response)
+            })
+            .catch(error=>{
+            console.error('Error fetching tasks:', error);
+            })
 
     },[persentage])
     const [message, setMessage]=useState('')
@@ -207,7 +208,18 @@ const [data, setData]= useState({})
           
         </div>
         <p className={"m-0 text-5xl "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>(!) Tip: Do some tigidik with your right arm and then some tutun with other arm and repeat for 1 minute</p>
-        
+       {graph&& 
+       <>
+       <p className={"m-0 text-5xl "+ isAuth.contrast +' '+ isAuth.monoColor+' '+ isAuth.changeColor+" " +isAuth.saturate+ " "+isAuth.differentColor}>(!)Analys</p>
+        <div className="flex items-center gap-10">
+       <img className='inline-block object-cover ml-3 rounded-lg h-[250px] w-[250px]' src={'data:image/jpeg;base64,'+graph.dtw}/>
+       <img className='inline-block object-cover ml-3 rounded-lg h-[250px] w-[250px]' src={'data:image/jpeg;base64,'+graph.dtw_total_distance}/>
+       </div>
+       </>
+      
+       
+       }
+       
       </div>
      
     </div>
