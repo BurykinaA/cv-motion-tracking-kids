@@ -38,8 +38,10 @@ def make_correction():
 
     errors = get_poses(photos[0], photos[1])
 
-    response = {"Frame_Error": errors['Frame_Error'], 
-                "Step": errors['Step'], 
-                "Cumulative_Accuracy": errors['Cumulative_Accuracy']}
-    
+    response = {
+        "Frame_Error": errors["Frame_Error"],
+        "Step": errors["Step"],
+        "Cumulative_Accuracy": errors["Cumulative_Accuracy"],
+    }
+
     return make_response(response)

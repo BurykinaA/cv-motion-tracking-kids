@@ -9,7 +9,6 @@ total_frames = 0
 correct_steps = 0
 
 
-
 def cosine_distance(landmarks1, landmarks2):
     if landmarks1 and landmarks2:
         points1 = np.array([(lm.x, lm.y, lm.z) for lm in [landmarks1]])
@@ -106,7 +105,7 @@ def detect_and_correct_errors(results_user, results_benchmark, threshold=0.5):
 def get_poses(image_user, image_benchmark):
     global total_frames
     global correct_steps
-    
+
     total_frames += 1
 
     results_user = pose.process(image_user)
