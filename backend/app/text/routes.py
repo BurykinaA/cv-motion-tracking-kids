@@ -9,6 +9,6 @@ from flask_cors import cross_origin
 def answer_question():
     data = request.json["text"]  # Теперь ожидаем список JSON объектов
     print(data)
-    
+
     response = {"output": data}
     return make_response(response)
