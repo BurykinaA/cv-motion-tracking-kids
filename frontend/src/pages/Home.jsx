@@ -128,7 +128,7 @@ const [data, setData]= useState({})
       // console.log(response)
     })
     .catch(error=>{
-        setMessage(error.response.data.error)
+        setMessage(error.response.error)
       console.error('Error fetching tasks:', error);
     })},[screen])
   
@@ -145,25 +145,32 @@ const [data, setData]= useState({})
     const [graph, setGraph]=useState()
     useEffect(()=>{
 
-        persentage==100&&
-        axios.get(URL+'api/photo/graph','')
-        .then(response=>
-            {
-                setGraph(response.data)
-            // console.log(response)
-            })
-            .catch(error=>{
-            console.error('Error fetching tasks:', error);
-            })
+        // persentage==100&&
+        // axios.get(URL+'api/photo/graph','')
+        // .then(response=>
+        //     {
+        //         setGraph(response.data)
+        //     // console.log(response)
+        //     })
+        //     .catch(error=>{
+        //     console.error('Error fetching tasks:', error);
+        //     })
 
     },[persentage])
     const [message, setMessage]=useState('')
     useEffect(()=>{
-        
-        persentage>50?
-        setMessage(good[persentage%13])
+        console.log(parseInt(data.Cumulative_Accuracy))
+        parseInt(data.Cumulative_Accuracy)>50?(
+        setMessage(good[persentage%13]),
+        parseInt(data.Cumulative_Accuracy)>80&&localStorage.setItem('stars', parseInt(localStorage.stars)+1+'')
+        )
         :  setMessage(bad[persentage%13])
     },[ data.Cumulative_Accuracy])
+
+    useEffect(()=>{
+        parseInt(localStorage.stars)>=5&& (localStorage.setItem('level', parseInt(localStorage.level)+1+''),
+        localStorage.setItem('stars',parseInt(localStorage.stars)-5+''))
+    },[localStorage])
   return (
         
     <div className="h-screen relative dark:text-white">
