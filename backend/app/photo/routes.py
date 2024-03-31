@@ -50,7 +50,7 @@ def make_correction():
     except Exception as e:
         # В этом случае можно логировать e для отладки или будущих улучшений
         print(e)  # Логирование ошибки, в реальном приложении можно использовать logging
-        return make_response(jsonify({"error": "no_body"}), 500)
+        return make_response({"error": "no_body"})
 
 
 
