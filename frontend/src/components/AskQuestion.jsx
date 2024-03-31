@@ -53,7 +53,7 @@ function AskQuestion() {
                 { 
                   data?
                     <>
-                      <p className=" mx-auto text-3xl">{data}</p>
+                      <p className=" mx-auto text-3xl">{data.output}</p>
                       <button className='w-full justify-center gap-2 flex text-white mt-3 items-center bg-blue-600 rounded-lg text-white hover:bg-blue-800 ' onClick={()=>setData()}>
                           Another question
                         </button>
