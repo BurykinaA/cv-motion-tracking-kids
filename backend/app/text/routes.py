@@ -7,7 +7,7 @@ from flask_cors import cross_origin
 @cross_origin()
 @photo.post("/api/text")
 def answer_question():
-    data = request['text']  # Теперь ожидаем список JSON объектов
+    data = request.json["text"]  # Теперь ожидаем список JSON объектов
     print(data)
     
     response = {"output": data}
