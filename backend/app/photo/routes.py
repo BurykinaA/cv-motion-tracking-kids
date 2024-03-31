@@ -12,39 +12,46 @@ import cv2
 from app.utils.detection import get_poses, get_picture_dtw
 
 
+
 @cross_origin()
 @photo.post("/api/photo")
 def make_correction():
-    data = request.json
+    try:
+        data = request.json
 
-    # print(data)  # Теперь ожидаем список JSON объектов
-    photos = []
+        photos = []
 
-    image_bytes = base64.b64decode(data["userVideo"])
-    image_io = io.BytesIO(image_bytes)
-    image = Image.open(image_io)
-    numpy_array = np.array(image)
-    image_cv = cv2.cvtColor(numpy_array, cv2.COLOR_RGB2BGR)
+        # Обработка userVideo
+        image_bytes = base64.b64decode(data["userVideo"])
+        image_io = io.BytesIO(image_bytes)
+        image = Image.open(image_io)
+        numpy_array = np.array(image)
+        image_cv = cv2.cvtColor(numpy_array, cv2.COLOR_RGB2BGR)
+        photos.append(image_cv)
 
-    photos.append(image_cv)
+        # Обработка originalVideo
+        image_bytes = base64.b64decode(data["originalVideo"])
+        image_io = io.BytesIO(image_bytes)
+        image = Image.open(image_io)
+        numpy_array = np.array(image)
+        image_cv = cv2.cvtColor(numpy_array, cv2.COLOR_RGB2BGR)
+        photos.append(image_cv)
 
-    image_bytes = base64.b64decode(data["originalVideo"])
-    image_io = io.BytesIO(image_bytes)
-    image = Image.open(image_io)
-    numpy_array = np.array(image)
-    image_cv = cv2.cvtColor(numpy_array, cv2.COLOR_RGB2BGR)
+        errors = get_poses(photos[0], photos[1])
 
-    photos.append(image_cv)
+        response = {
+            "Frame_Error": errors["Frame_Error"],
+            "Step": errors["Step"],
+            "Cumulative_Accuracy": errors["Cumulative_Accuracy"],
+        }
 
-    errors = get_poses(photos[0], photos[1])
+        return make_response(response, 200)
 
-    response = {
-        "Frame_Error": errors["Frame_Error"],
-        "Step": errors["Step"],
-        "Cumulative_Accuracy": errors["Cumulative_Accuracy"],
-    }
+    except Exception as e:
+        # В этом случае можно логировать e для отладки или будущих улучшений
+        print(e)  # Логирование ошибки, в реальном приложении можно использовать logging
+        return make_response(jsonify({"error": "no_body"}), 500)
 
-    return make_response(response)
 
 
 @cross_origin()
