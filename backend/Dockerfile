@@ -1,7 +1,7 @@
-FROM python:3.10-slim
+FROM python:3.10.7-slim
 WORKDIR /code
 COPY requirements.txt requirements.txt
-RUN apt-get update && apt-get install -y gcc libgl1-mesa-dev \
+RUN apt-get update && apt-get install -y gcc libgl1-mesa-dev libglib2.0-0\
     && pip install -r requirements.txt \
     && apt-get remove -y gcc \
     && apt-get autoremove -y \
