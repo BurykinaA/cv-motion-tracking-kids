@@ -10,33 +10,44 @@ function Face({setScreen, time}) {
   const webcamRef = useRef(null);
   
   const canvasRef = useRef(null);
- 
-
-  const [imageSent, setImageSent] = useState(false);
-  const captureImage = async () => {
-    // Создаем снимок экрана
-    
-    const videoElement = webcamRef.current.video;
-    const canvasElement = canvasRef.current;
-    canvasElement.width = videoElement.videoWidth;
-    canvasElement.height = videoElement.videoHeight;
-    const ctx = canvasElement.getContext('2d');
-    ctx.drawImage(videoElement, 0, 0, videoElement.videoWidth, videoElement.videoHeight);
+  // const captureImage = async () => {
+  //   // Создаем снимок экрана
+  //   const videoElement = webcamRef.current.video;
+  //   const canvasElement = canvasRef.current;
+  //   const ctx = canvasElement.getContext('2d');
   
-    const imageData = canvasElement.toDataURL('image/jpeg');
-    setScreen(imageData.split(',')[1])
-   
-
-  };
+  //   // Устанавливаем размеры холста
+  //   canvasElement.width = videoElement.videoWidth;
+  //   canvasElement.height = videoElement.videoHeight;
+  
+  //   // Выполняем захват изображения в следующем доступном кадре видео
+  //   requestAnimationFrame(() => {
+  //     ctx.drawImage(videoElement, 0, 0);
+      
+  //     // Получаем данные изображения в формате JPEG
+  //     const imageData = canvasElement.toDataURL('image/jpeg');
+      
+  //     // Отправляем данные изображения в нужное место
+  //     setScreen(imageData.split(',')[1]);
+  //   });
+  // };
+  
 
   
   
 
   useEffect(()=>{
-    time&& (  captureImage())
+    time&& (  
+      // captureImage(),
+     capture())
   },[time])
 
-  
+  const capture = () => {
+    const imageSrc = webcamRef.current.getScreenshot();
+    // Теперь вы можете использовать imageSrc, чтобы показать снимок или выполнить другие операции с ним
+    console.log(imageSrc);
+    setScreen(imageSrc.split(',')[1]);
+  };
 
   return ( 
     <div className="w-max"> 
@@ -48,14 +59,16 @@ function Face({setScreen, time}) {
       <div className="mirror flex"> 
      
         <Webcam 
-          ref={webcamRef} 
-          className="absolute inset-x-0  rounded-lg m-auto w-[632px] "
-          
+          audio={false}
+          ref={webcamRef}
+          screenshotFormat="image/jpeg"
+          className="absolute inset-x-0 rounded-lg m-auto w-[632px]"
         /> 
         <canvas 
           ref={canvasRef} 
-          className="output_canvas m-auto relative rounded-lg w-[632px] h-[474px] " 
+          className="  output_canvas m-auto relative rounded-lg w-[632px] h-[474px] " 
         /> 
+       
       </div> 
  
       

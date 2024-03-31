@@ -95,7 +95,7 @@ function Home(props) {
       const currentTime = Math.floor(video.currentTime);
 // console.log(video.duration)
       
-      if (time!=currentTime) {
+      if (time!=currentTime&& currentTime%2==0) {
         time=currentTime
         // console.log(currentTime, video.currentTime, time)
         captureFrame();
