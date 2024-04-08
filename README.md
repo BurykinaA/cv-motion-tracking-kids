@@ -1,6 +1,6 @@
 # cv-motion-tracking-kids
 
-(presentation of the solution)[https://docs.google.com/presentation/d/1mYm_YkRkEYTxL8M3HuowlKWzEIyvznc6/edit?usp=sharing&ouid=111610996679687620587&rtpof=true&sd=true]
+[Presentation of the solution](https://docs.google.com/presentation/d/1mYm_YkRkEYTxL8M3HuowlKWzEIyvznc6/edit?usp=sharing&ouid=111610996679687620587&rtpof=true&sd=true)
 
 -----------------
 
