@@ -4,16 +4,18 @@
 
 -----------------
 
-![image](https://github.com/BurykinaA/cv-motion-tracking-kids/assets/92402616/6cc532ee-b502-4834-8e98-79790698a6cb)
+<p float="left">
+  <img src="https://github.com/BurykinaA/cv-motion-tracking-kids/assets/92402616/6cc532ee-b502-4834-8e98-79790698a6cb" width="550">
+</p>
 
 
 ## What we have used
 
--Body detection
--Scaling
--Projection onto spherical space
--Cosine proximity metric
--Dynamic time warping
+- Body detection 
+- Scaling 
+- Projection onto spherical space 
+- Cosine proximity metric 
+- Dynamic time warping 
 
 ## Application Launch
 This guide will help you launch the application using Docker on Linux and Windows operating systems.
