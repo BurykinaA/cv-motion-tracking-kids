@@ -30,6 +30,8 @@ git clone https://github.com/BurykinaA/cv-motion-tracking-kids.git
 cd cv-motion-tracking-kids
 ```
 
+### Step 2: Launch
+
 WITHOUT DOCKER
 In the main folder:
 1) `python -m venv venv`
@@ -48,7 +50,6 @@ To start the frontend:
 
 WITH DOCKER
 
-### Step 2: Launch Docker Compose
 Now, use Docker Compose to build and launch the application's containers.
 
 On Linux:
